@@ -122,6 +122,8 @@
             /* ==========================================================
             DOM REFERENCES
             ========================================================== */
+            const shareModal = document.getElementById('shareModal');
+            const rulebookModal = document.getElementById('rulebookModal');
             const boardEl = document.getElementById('board');
             const turnEl = document.getElementById('turnBadge');
             const statusEl = document.getElementById('statusBar');
@@ -1799,7 +1801,7 @@
                 confirmOverlay.classList.remove('active');
                 confirmCallback = null;
             };
-                //added new line here
+
             if (newPvPBtn) newPvPBtn.onclick = () => {
                 // Clear any lingering celebration effects
                 const overlay = document.getElementById('gameOverOverlay');
@@ -2051,9 +2053,26 @@
                 const tag = document.activeElement && document.activeElement.tagName;
                 if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
 
-                if (document.querySelector('.modal.show, [role="dialog"]:not([hidden]), .promo-overlay.active')) return;
+                
 
                 const key = e.key.toLowerCase();
+                const hasBlockingOverlay =
+                    document.querySelector(
+                        '.modal.show, [role="dialog"]:not([hidden]), .promo-overlay.active'
+                    ) ||
+                    (shareModal?.style.display && shareModal.style.display !== 'none') ||
+                    (rulebookModal?.style.display && rulebookModal.style.display !== 'none') ||
+                    fenOverlay?.classList.contains('active') ||
+                    confirmOverlay?.classList.contains('active') ||
+                    drawOverlay?.classList.contains('active') ||
+                    gameOverOverlay?.classList.contains('active') ||
+                    welcomeOverlay?.classList.contains('active');
+
+            // Allow Escape to close overlays
+            if (hasBlockingOverlay && key !== 'escape') {
+                return;
+            }
+
                 if (key === 'f' && flipBtn) {
                     e.preventDefault();
                     flipBtn.click();
@@ -2066,7 +2085,29 @@
                 } else if (key === 'p' && pauseBtn && pauseBtn.style.display !== 'none') {
                     e.preventDefault();
                     pauseBtn.click();
-                }// added pause/resume button shortcut
+                } else if (key === 'n' && newPvPBtn) {
+                    e.preventDefault();
+                    newPvPBtn.click();
+
+                } else if (key === 'a' && newAIBtn) {
+                    e.preventDefault();
+                    newAIBtn.click();
+
+                } else if (key === 'escape') {
+                    e.preventDefault();
+
+                    if (shareModal?.style.display === 'flex') {
+                        shareModal.style.display = 'none';
+                    }
+
+                    if (rulebookModal?.style.display === 'flex') {
+                        rulebookModal.style.display = 'none';
+                    }
+
+                    if (fenOverlay?.classList.contains('active')) {
+                        fenOverlay.classList.remove('active');
+                    }
+                }
             });
             // Emote Logic
             let emoteCooldown = false;
@@ -2125,6 +2166,7 @@ if (leaveConfirmYes) leaveConfirmYes.addEventListener('click', () => {
 if (leaveConfirmNo) leaveConfirmNo.addEventListener('click', () => {
     leaveConfirmOverlay.style.display = 'none';
 });
+
             
             function showAssetWarning() {
                 const t = document.getElementById('confirmTimerContainer');
