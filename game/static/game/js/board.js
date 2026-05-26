@@ -2255,7 +2255,6 @@
             if (pauseBtn) pauseBtn.onclick = () => paused ? resumeGame() : pauseGame();
             if (muteBtn) muteBtn.onclick = toggleMute;
             if (flipBtn) flipBtn.onclick = toggleBoardOrientation;
-let wasPaused = false;
 if (resignBtn) resignBtn.onclick = () => {
     if (gameOver) return;
 
