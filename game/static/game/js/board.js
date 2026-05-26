@@ -24,6 +24,7 @@
             let hints = [];
             let lastMove = null;
             let premove = null;
+            let highlightedSquare = null;
 
             let dragging = false;
             let dragSrc = null;
@@ -458,6 +459,13 @@
                 // fix
                 // Removed static styling for AI clock so it displays the countdown timer.
 
+                // Restore check highlight if game was reloaded while in check
+                if (data.game_status === 'check') {
+                    applyCheckHighlight();
+                } else {
+                    highlightCheck();
+                }
+
                 if (data.game_status && data.game_status !== 'active' && data.game_status !== 'ok') {
                     handleGameStatus(data.game_status, data.draw_reason);
                 }
@@ -530,6 +538,11 @@
                         d.dataset.r = r;
                         d.dataset.c = c;
                         d.onclick = () => onClick(r, c);
+                        d.oncontextmenu = (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            toggleSquareHighlight(r, c);
+                        };
                         d.ondragover = e => e.preventDefault();
                         d.ondrop = e => onDrop(e, r, c);
 
@@ -623,7 +636,7 @@
 
             function refreshHighlights() {
                 boardEl.querySelectorAll('.square').forEach(el => {
-                    el.classList.remove('selected', 'last-move', 'in-check');
+                    el.classList.remove('selected', 'last-move', 'in-check', 'custom-highlight');
                     el.querySelectorAll('.move-dot, .capture-ring').forEach(n => n.remove());
                 });
 
@@ -631,7 +644,10 @@
                     sq(lastMove.from[0], lastMove.from[1]).classList.add('last-move');
                     sq(lastMove.to[0], lastMove.to[1]).classList.add('last-move');
                 }
-
+                if (highlightedSquare) {
+                    sq(highlightedSquare.r, highlightedSquare.c)
+                        .classList.add('custom-highlight');
+                }
                 if (selected) {
                     sq(selected.r, selected.c).classList.add('selected');
                     hints.forEach(h => {
@@ -742,7 +758,23 @@
 
                 refreshHighlights();
             }
+            function toggleSquareHighlight(r, c) {
+                if (highlightedSquare) {
+                    sq(highlightedSquare.r, highlightedSquare.c)
+                        .classList.remove('custom-highlight');
+                }
 
+                if (
+                    highlightedSquare &&
+                    highlightedSquare.r === r &&
+                    highlightedSquare.c === c
+                ) {
+                    highlightedSquare = null;
+                } else {
+                    highlightedSquare = { r, c };
+                    sq(r, c).classList.add('custom-highlight');
+                }
+            }
             function deselect() {
                 selected = null;
                 hints = [];
