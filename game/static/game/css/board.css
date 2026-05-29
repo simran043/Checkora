@@ -1580,6 +1580,22 @@ body {
     pointer-events: auto;
 }
 
+.chessboard.paused::before {
+    content: "Press P or click Resume to continue";
+    position: absolute;
+    top: calc(48% + 76px);
+    left: 50%;
+    transform: translateX(-50%);
+    color: #f0c040;
+    font-size: 0.95rem;
+    background: rgba(0, 0, 0, 0.78);
+    padding: 8px 12px;
+    border-radius: 8px;
+    z-index: 9999;
+    text-align: center;
+    white-space: nowrap;
+    pointer-events: none;
+}
   
 @media (max-width: 768px) {
     .chessboard.paused::after {
