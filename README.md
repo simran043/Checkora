@@ -106,7 +106,7 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-Open `http://127.0.0.1:8000/` in your browser and start playing.
+Open `http://localhost:8000/` in your browser and start playing. Use `http://` (not `https://`) — the development server does not support SSL.
 
 ### Compile the C++ Engine _(optional but recommended)_
 
@@ -576,6 +576,15 @@ If you already have another service running on your local port 8000, Django will
     ```bash
     python manage.py runserver 8080
     ```
+
+### 🔒 7. Local SSL Error (`ERR_SSL_PROTOCOL_ERROR`)
+If the browser shows `ERR_SSL_PROTOCOL_ERROR` or the terminal prints *"You're accessing the development server over HTTPS, but it only supports HTTP"*, the browser is using HTTPS against the local HTTP dev server.
+
+*   **Resolution:**
+    1. Copy the example env file if you have not already: `copy .env.example .env` (Windows) or `cp .env.example .env` (macOS/Linux).
+    2. Open **`http://localhost:8000/`** — include `http://` and prefer `localhost` over `127.0.0.1`.
+    3. In Chrome/Brave, disable "Always use secure connections" / "Upgrade connections to HTTPS" for local development.
+    4. Clear cached HSTS for local hosts: Chrome/Brave → `chrome://net-internals/#hsts` → delete `127.0.0.1` and `localhost`.
 
 ## Contributor Support & Feedback
 
