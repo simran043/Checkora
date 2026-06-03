@@ -1457,6 +1457,13 @@
                             board = parseBoard(data.board);
                             turn = data.current_turn;
 
+                            if (data.threefold_warning) {
+                                showStatus(
+                                    '⚠️ This position has appeared twice. One more repetition will trigger a draw.',
+                                    false
+                                );
+                            }
+                            
                             // Daily Puzzle Validation
                             if (dailyPuzzleMode && currentPuzzle && !puzzleAnalyzing) {
 
@@ -1669,7 +1676,14 @@
                             const mv = data.ai_move;
                             await animateMove(mv.from_row, mv.from_col, mv.to_row, mv.to_col);
                             board = parseBoard(data.board);
-                            turn = data.current_turn;
+
+                            if (data.threefold_warning) {
+                                showStatus(
+                                    '⚠️ This position has appeared twice. One more repetition will trigger a draw.',
+                                    false
+                                );
+                            }
+                            
                             lastMove = { from: [mv.from_row, mv.from_col], to: [mv.to_row, mv.to_col] };
                             whiteTime = data.white_time;
                             blackTime = data.black_time;
