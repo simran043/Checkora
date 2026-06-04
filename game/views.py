@@ -42,10 +42,10 @@ from django.views.decorators.http import require_GET, require_POST
 from django.contrib.auth.decorators import login_required
 
 from .engine import ChessGame
-from .models import(
+from .models import (
     GameResult,
     PuzzleStats,
-    LessonProgress
+    LessonProgress,
 )
 logger = logging.getLogger(__name__)
 from game.services import cleanup_stale_games
@@ -1513,7 +1513,7 @@ def lesson_detail_view(request, lesson_name):
                     "position": {
                         "e1": "K",
                         "h1": "R"
-                },
+                    },
                     "highlight": [
                         "f1",
                         "g1"
