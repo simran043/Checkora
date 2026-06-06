@@ -909,17 +909,6 @@
 
     function createAnim(p, dRow, dCol) {
         return new Promise(resolve => {
-            const ghost = p.cloneNode(true);
-            ghost.classList.add('piece-ghost');
-            ghost.style.width = p.offsetWidth + 'px';
-            ghost.style.height = p.offsetHeight + 'px';
-            ghost.style.position = 'absolute';
-            ghost.style.top = '0';
-            ghost.style.left = '0';
-            ghost.style.pointerEvents = 'none';
-            ghost.style.zIndex = '9999';
-            p.parentElement.appendChild(ghost);
-            setTimeout(() => ghost.remove(), 300);
 
             p.classList.add('moving');
             p.style.transition = 'transform 0.25s ease-in-out, opacity 0.2s ease';
