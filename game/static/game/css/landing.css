@@ -38,14 +38,17 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 5%;
-    background-color: rgba(15, 15, 26, 0.94);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     position: sticky;
     top: 0;
     z-index: 1000;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    box-shadow: 0 12px 30px rgba(5, 8, 15, 0.22);
+    margin: 14px 22px;
+    border-radius: 18px;
+    background: rgba(15, 15, 25, 0.55);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .nav-left {
@@ -55,7 +58,7 @@ body {
 }
 
 .logo-link {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 1rem;
     text-decoration: none;
@@ -64,12 +67,24 @@ body {
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: 2px;
+    transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.logo-link:hover {
+    opacity: 0.88;
+    filter: drop-shadow(0 0 10px rgba(201, 168, 76, 0.35));
 }
 
 .logo-img {
-    height: 35px;
+    height: 40px;
     width: auto;
     animation: logo-glow 2.5s ease-in-out infinite alternate;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+.logo-img:hover {
+    transform: scale(1.07);
 }
 
 @keyframes logo-glow {
@@ -96,11 +111,38 @@ body {
     color: var(--text-primary);
     font-size: 0.95rem;
     font-weight: 500;
-    transition: color 0.2s;
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s ease;
+    padding-bottom: 4px;
 }
 
 .nav-links a:hover {
-    color: var(--accent-gold);
+    color: #C9A84C;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #C9A84C, #FFD700);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a.active {
+    color: #C9A84C;
+}
+
+.nav-links a.active::after {
+    width: 100%;
 }
 
 .nav-right {
@@ -109,27 +151,43 @@ body {
     gap: 1.5rem;
 }
 
-.btn-signin,
-.btn-register {
+.btn-signin {
     text-decoration: none;
-    color: var(--accent-gold);
-    font-size: 0.95rem;
-    font-weight: 600;
-    padding: 0.6rem 1.5rem;
-    border-radius: 6px;
     display: inline-block;
     background: transparent;
-    border: 1px solid rgba(240, 192, 64, 0.35);
-    transition: all 0.2s ease;
+    color: #C9A84C;
+    border: 2px solid #C9A84C;
+    border-radius: 8px;
+    padding: 9px 22px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.btn-signin:hover,
+.btn-signin:hover {
+    background: rgba(201, 168, 76, 0.12);
+    color: #FFD700;
+    box-shadow: 0 0 12px rgba(201, 168, 76, 0.2);
+}
+
+.btn-register {
+    text-decoration: none;
+    display: inline-block;
+    background: linear-gradient(135deg, #C9A84C 0%, #FFD700 100%);
+    color: #1a1a1a;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 22px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(201, 168, 76, 0.35);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+}
+
 .btn-register:hover {
-    background: linear-gradient(135deg, #f5cc55, #e0b030);
-    color: #1a1a2e;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(240, 192, 64, 0.25);
-    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(201, 168, 76, 0.5);
+    filter: brightness(1.08);
 }
 
 .btn-signin:active,
@@ -886,9 +944,9 @@ body {
 }
 
 .capability-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-    border-color: rgba(240, 192, 64, 0.35);
+    transform: translateY(-6px);
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 18px rgba(240, 192, 64, 0.18);
 }
 
 .capability-icon {
