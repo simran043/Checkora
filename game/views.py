@@ -1666,11 +1666,12 @@ def lessons_view(request):
                 flat=True
             )
         )
+        
     total_lessons = sum(
-        len(lesson_list)
-        for lesson_list in lessons.values()
+        len(level["lessons"])
+        for level in LESSON_LEVELS
     )
-
+    
     completed_count = len(completed_lessons)
     unlocked_lessons = get_unlocked_lessons(
         completed_lessons
@@ -1680,12 +1681,10 @@ def lessons_view(request):
         request,
         "game/lessons.html",
         {
-            "lessons": lessons,
-            "lesson_levels": LESSON_LEVELS,
+            "levels": LESSON_LEVELS,
             "unlocked_lessons": unlocked_lessons,
             "completed_lessons": completed_lessons,
             "total_lessons": total_lessons,
-            "completed_count": completed_count
         }
     )
 
@@ -2487,15 +2486,15 @@ def lesson_map_view(request):
             "unlocked_lessons": unlocked_lessons,
         }
     )
-    
-    
+
+
 @login_required
 def achievements_view(request):
     achievements = Achievement.objects.all().order_by(
         "category",
         "title"
     )
-    
+
     unlocked = set(
         UserAchievement.objects.filter(
             user=request.user
@@ -2508,7 +2507,7 @@ def achievements_view(request):
     featured_badges = FeaturedBadge.objects.filter(
         user=request.user
     ).select_related("achievement")
-    
+
     return render(
         request,
         "game/achievements.html",
@@ -2518,6 +2517,7 @@ def achievements_view(request):
             "featured_badges": featured_badges,
         }
     )
+
 
 @login_required
 def feature_badge(request, achievement_id):
@@ -2559,6 +2559,7 @@ def feature_badge(request, achievement_id):
 
     return redirect("achievements")
 
+
 @login_required
 def remove_featured_badge(request, badge_id):
     FeaturedBadge.objects.filter(
@@ -2572,4 +2573,3 @@ def remove_featured_badge(request, badge_id):
     )
 
     return redirect("achievements")
-
