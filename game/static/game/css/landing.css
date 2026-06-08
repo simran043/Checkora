@@ -370,15 +370,15 @@ body {
 
 #chess-board-bg {
   display: grid;
-  width: 100vw;
-  height: 100vh;
-  grid-template-columns: repeat(12, calc(100vw / 12));
-  grid-template-rows: repeat(12, calc(100vw / 12));
+  width: 2400px;
+  height: 2400px;   
+  grid-template-columns: repeat(20, 120px);
+  grid-template-rows: repeat(20, 120px);
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-left: -50vw;
-  margin-top: -50vw;
+  margin-left: -1200px;
+  margin-top: -1200px;
   animation: chess-drift 24s linear infinite;
   pointer-events: none;
   z-index: 0;
@@ -386,8 +386,8 @@ body {
 }
 
 @keyframes chess-drift {
-  0%   { transform: perspective(900px) rotateX(50deg) translateX(0) translateY(0); }
-  100% { transform: perspective(900px) rotateX(50deg) translateX(-90px) translateY(-90px); }
+  0%   { transform: perspective(900px) rotateX(40deg) translateX(0) translateY(0); }
+  100% { transform: perspective(900px) rotateX(40deg) translateX(-90px) translateY(-90px); }
 }
 
 .hero-board-vignette {
@@ -400,8 +400,8 @@ body {
 }
 
 .csq {
-  width: calc(100vw / 12);
-  height: calc(100vw / 12);
+  width: 120px;
+  height: 120px;
   position: relative;
   box-sizing: border-box;
 }
@@ -1193,10 +1193,6 @@ body {
     .faq-answer-content {
         padding: 0 20px 20px 20px;
         font-size: 0.9rem;
-    }
-
-    #chess-board-bg {
-        opacity: 0.4;
     }
 }
 
