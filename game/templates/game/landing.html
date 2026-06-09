@@ -569,7 +569,7 @@
             <li><a href="#" class="footer-link" data-modal-trigger="privacyModal">Privacy Policy</a></li>
             <li><a href="#" class="footer-link" onclick="openTermsModal(); return false;">Terms & Conditions</a></li>     
             <li><a href="#" class="footer-link" onclick="openContactModal(); return false;">Contact Us</a></li>
-            <li><a href="{% url 'disclaimer' %}" class="footer-link">Disclaimer</a></li>
+            <li><a href="#" class="footer-link" onclick="openDisclaimerModal(); return false;">Disclaimer</a></li>
           </ul>
         </div>
       </div>
@@ -932,6 +932,153 @@
         }
       }
     });
+  })();
+  </script>
+
+  <div id="disclaimerModal" role="dialog" aria-modal="true" aria-labelledby="disclaimerModalTitle"
+      style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; align-items:center; justify-content:center;">
+
+    <div tabindex="-1" style="position:relative; background:#131522; border:1px solid rgba(240,192,64,0.2); border-radius:16px; width:90%; max-width:700px; max-height:88vh; display:flex; flex-direction:column; overflow:hidden;">
+
+      <div style="padding:24px 28px 16px; border-bottom:1px solid rgba(255,255,255,0.07); display:flex; justify-content:space-between; align-items:center;">
+        <h1 id="disclaimerModalTitle" style="color:#f0c040; font-size:1.6rem; font-weight:700;">Disclaimer</h1>
+
+        <button type="button" aria-label="Close disclaimer" onclick="closeDisclaimerModal()"
+                style="background:rgba(255,255,255,0.08); border:none; color:#fff; width:32px; height:32px; border-radius:50%; cursor:pointer;">
+          ✕
+        </button>
+      </div>
+
+      <div style="overflow-y:auto; padding:24px 28px; flex:1;">
+        <div style="display:flex; flex-direction:column; gap:14px;">
+
+          <div style="background:#1a1c2e; border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:20px;">
+            <h2 style="color:#f0c040; margin-bottom:10px;">
+              General Information
+            </h2>
+            <p style="color:rgba(255,255,255,0.75); line-height:1.7;">
+              The information, services, and structural match simulation environments
+              provided on the Checkora chess platform are intended solely for general
+              informational, educational, and recreational entertainment purposes.
+            </p>
+            <p style="color:rgba(255,255,255,0.75); line-height:1.7; margin-top:10px;">
+              All modules are interactive and provided on an "as-is" and
+              "as-available" execution model without absolute performance assertions
+              of any kind.
+            </p>
+          </div>
+
+          <div style="background:#1a1c2e; border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:20px;">
+            <h2 style="color:#f0c040; margin-bottom:10px;">
+              Limitation of Liability
+            </h2>
+            <p style="color:rgba(255,255,255,0.75); line-height:1.7;">
+              To the fullest extent permitted by applicable law, Checkora, its core
+              architects, and open-source contributors shall assume no accountability
+              for direct, indirect, accidental, or consequential operational data
+              disruptions.
+            </p>
+          </div>
+
+          <div style="background:#1a1c2e; border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:20px;">
+            <h2 style="color:#f0c040; margin-bottom:10px;">
+              Accuracy of Information
+            </h2>
+            <p style="color:rgba(255,255,255,0.75); line-height:1.7;">
+              Evaluations, material calculations, and strategic suggestions are
+              algorithmic estimations and should not be interpreted as official chess
+              analysis or competitive certification.
+            </p>
+          </div>
+
+          <div style="background:#1a1c2e; border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:20px;">
+            <h2 style="color:#f0c040; margin-bottom:10px;">
+              External Links
+            </h2>
+            <p style="color:rgba(255,255,255,0.75); line-height:1.7;">
+              Checkora may provide links to GitHub, Discord, and other third-party
+              resources. We do not control or guarantee the content, policies, or
+              practices of those external services.
+            </p>
+          </div>
+
+          <div style="background:#1a1c2e; border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:20px;">
+            <h2 style="color:#f0c040; margin-bottom:10px;">
+              User Responsibility
+            </h2>
+            <p style="color:rgba(255,255,255,0.75); line-height:1.7;">
+              By using Checkora, you accept responsibility for maintaining secure
+              credentials and complying with fair-play standards while using the
+              platform.
+            </p>
+          </div>
+
+          <p style="color:#64748b; font-size:0.82rem;">
+            Last updated: May 2026
+          </p>
+
+        </div>
+      </div>
+
+      <div style="padding:16px 28px; border-top:1px solid rgba(255,255,255,0.07); display:flex; justify-content:flex-end;">
+        <button type="button"
+                onclick="closeDisclaimerModal()"
+                style="background:linear-gradient(135deg,#f0c040,#d4a020); color:#0f0f1a; border:none; padding:10px 28px; border-radius:8px; font-weight:700; cursor:pointer;">
+          I Understand
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+  (function () {
+      const modal = document.getElementById('disclaimerModal');
+      const modalInner = modal.querySelector('[tabindex="-1"]');
+      let lastFocused;
+
+      function openDisclaimerModal() {
+          lastFocused = document.activeElement;
+          modal.style.display = 'flex';
+          modalInner.focus();
+      }
+
+      function closeDisclaimerModal() {
+          modal.style.display = 'none';
+          if (lastFocused) lastFocused.focus();
+      }
+
+      window.openDisclaimerModal = openDisclaimerModal;
+      window.closeDisclaimerModal = closeDisclaimerModal;
+
+      document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && modal.style.display === 'flex') {
+              closeDisclaimerModal();
+          }
+      });
+
+      modal.addEventListener('click', function (e) {
+          if (e.target === modal) closeDisclaimerModal();
+      });
+
+      modal.addEventListener('keydown', function (e) {
+          if (e.key === 'Tab') {
+              const focusable = modal.querySelectorAll(
+                  'button,[href],[tabindex]:not([tabindex="-1"])'
+              );
+
+              const first = focusable[0];
+              const last = focusable[focusable.length - 1];
+
+              if (e.shiftKey && document.activeElement === first) {
+                  e.preventDefault();
+                  last.focus();
+              } else if (!e.shiftKey && document.activeElement === last) {
+                  e.preventDefault();
+                  first.focus();
+              }
+          }
+      });
   })();
   </script>
     <script src="{% static 'game/js/dropdown.js' %}"></script>
