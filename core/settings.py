@@ -14,6 +14,7 @@ import os
 import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -140,8 +141,6 @@ USE_TZ = True
 # In production, we require a shared cache backend (e.g., DatabaseCache
 # or Redis). LocMemCache is per-process and can bypass login lockouts
 # in multi-worker environments.
-from django.core.exceptions import ImproperlyConfigured
-
 cache_backend = os.environ.get(
     'CACHE_BACKEND',
     'django.core.cache.backends.db.DatabaseCache' if IS_PRODUCTION
