@@ -128,12 +128,34 @@ USE_I18N = True
 USE_TZ = True
 
 # Cache configuration
+# In production, we require a shared cache backend (e.g., DatabaseCache
+# or Redis). LocMemCache is per-process and can bypass login lockouts
+# in multi-worker environments.
+from django.core.exceptions import ImproperlyConfigured
+
+cache_backend = os.environ.get(
+    'CACHE_BACKEND',
+    'django.core.cache.backends.db.DatabaseCache' if IS_PRODUCTION
+    else 'django.core.cache.backends.locmem.LocMemCache'
+)
+
+if IS_PRODUCTION and 'locmem.LocMemCache' in cache_backend:
+    raise ImproperlyConfigured(
+        "LocMemCache cannot be used in production because it is "
+        "per-process and not shared across workers. Please configure "
+        "a shared backend like Redis or DatabaseCache."
+    )
+
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'checkora-cache',
+        'BACKEND': cache_backend,
+        'LOCATION': os.environ.get(
+            'CACHE_LOCATION',
+            'checkora_cache_table' if IS_PRODUCTION else 'checkora-cache'
+        ),
     }
 }
+
 
 PASSWORD_RESET_EMAIL_COOLDOWN_SECONDS = 300
 PASSWORD_RESET_IP_WINDOW_SECONDS = 900
@@ -181,6 +203,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL') or EMAIL_HOST_USER
 
 
 # Redirect after login
@@ -199,3 +222,8 @@ SECURE_HSTS_PRELOAD = IS_PRODUCTION
 
 # Secret token for authenticating Vercel cron job requests to /api/cron/cleanup-stale-games/
 CRON_SECRET = os.environ.get('CRON_SECRET')
+
+# Trusted proxies for client IP extraction from X-Forwarded-For header
+TRUSTED_PROXIES = os.environ.get('TRUSTED_PROXIES', '127.0.0.1,::1').split(',')
+TRUSTED_PROXIES = [ip.strip() for ip in TRUSTED_PROXIES if ip.strip()]
+
