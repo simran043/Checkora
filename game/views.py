@@ -1411,7 +1411,7 @@ def leaderboard_view(request):
         "user"
     ).order_by(
         "-rating"
-    )
+    )[:50]
 
     return render(
         request,
