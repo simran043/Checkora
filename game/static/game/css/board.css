@@ -1009,6 +1009,14 @@ body {
 }
 
 @media (max-width: 860px) {
+    :root {
+    --square-size: clamp(
+        32px,
+        calc((100vw - 2 * var(--layout-padding-x) - var(--board-chrome)) / 8),
+        60px
+    );
+}
+
     .game-layout {
         display: flex;
         flex-direction: column;
@@ -1561,7 +1569,10 @@ body {
 
 @media (max-width: 400px) {
     :root {
-        --mobile-board-size: min(calc(100vw - 24px), 360px);
+        --mobile-board-size: min(
+    calc(100vw - var(--rank-label-width) - 12px),
+    360px
+    );
         --mobile-square-size: calc((var(--mobile-board-size) - (var(--board-border-width) * 2)) / 8);
         --square-size: var(--mobile-square-size);
     }

@@ -2178,6 +2178,7 @@
                     const blindfoldBtn = document.getElementById('blindfoldBtn');
                     if (blindfoldBtn) blindfoldBtn.textContent = 'Blindfold: OFF';
                 }
+                updateThinkingDots();
             
                 let title = '', message = '';
                 
