@@ -1,5 +1,7 @@
 import json
 from django.test import TestCase, override_settings
+from django.urls import reverse
+from game.views import MAX_ANALYSIS_MOVES, MAX_MOVE_LENGTH
 from game.analysis import (
     detect_opening,
     count_captures,
@@ -62,11 +64,12 @@ class AnalysisTest(TestCase):
             "reason": "Checkmate"
         }
         response = self.client.post(
-            '/api/analyze-game/',
+            reverse('analyze_game'),
             data=json.dumps(payload),
             content_type='application/json'
         )
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json(), {'error': 'Unauthorized'})
 
     def test_api_endpoint_success(self):
         self.client.force_login(self.user)
@@ -76,7 +79,7 @@ class AnalysisTest(TestCase):
             "reason": "Checkmate"
         }
         response = self.client.post(
-            '/api/analyze-game/',
+            reverse('analyze_game'),
             data=json.dumps(payload),
             content_type='application/json'
         )
@@ -99,7 +102,7 @@ class AnalysisTest(TestCase):
             "reason": "Checkmate"
         }
         response = self.client.post(
-            '/api/analyze-game/',
+            reverse('analyze_game'),
             data=json.dumps(payload),
             content_type='application/json'
         )
@@ -109,32 +112,32 @@ class AnalysisTest(TestCase):
     def test_api_endpoint_moves_too_long(self):
         self.client.force_login(self.user)
         payload = {
-            "moves": ["e4"] * 501,
+            "moves": ["e4"] * (MAX_ANALYSIS_MOVES + 1),
             "result": "Win",
             "reason": "Checkmate"
         }
         response = self.client.post(
-            '/api/analyze-game/',
+            reverse('analyze_game'),
             data=json.dumps(payload),
             content_type='application/json'
         )
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.json(), {'error': 'Moves list cannot exceed 500'})
+        self.assertEqual(response.json(), {'error': f'Moves list cannot exceed {MAX_ANALYSIS_MOVES} entries'})
 
     def test_api_endpoint_move_string_too_long(self):
         self.client.force_login(self.user)
         payload = {
-            "moves": ["e4", "a" * 21],
+            "moves": ["e4", "a" * (MAX_MOVE_LENGTH + 1)],
             "result": "Win",
             "reason": "Checkmate"
         }
         response = self.client.post(
-            '/api/analyze-game/',
+            reverse('analyze_game'),
             data=json.dumps(payload),
             content_type='application/json'
         )
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.json(), {'error': 'Move must be a string of at most 20 characters'})
+        self.assertEqual(response.json(), {'error': f'Move must be a string of at most {MAX_MOVE_LENGTH} characters'})
 
     def test_api_endpoint_move_not_string(self):
         self.client.force_login(self.user)
@@ -144,10 +147,10 @@ class AnalysisTest(TestCase):
             "reason": "Checkmate"
         }
         response = self.client.post(
-            '/api/analyze-game/',
+            reverse('analyze_game'),
             data=json.dumps(payload),
             content_type='application/json'
         )
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.json(), {'error': 'Move must be a string of at most 20 characters'})
+        self.assertEqual(response.json(), {'error': f'Move must be a string of at most {MAX_MOVE_LENGTH} characters'})
 

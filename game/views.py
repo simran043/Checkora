@@ -71,6 +71,10 @@ LOCKOUT_SECONDS = 900
 USERNAME_MAX_FAILS = 10
 IP_MAX_FAILS = 20
 
+# Limits for game analysis
+MAX_ANALYSIS_MOVES = 500
+MAX_MOVE_LENGTH = 20
+
 from game.services import (
     cleanup_stale_games,
     check_game_achievements,
@@ -1863,13 +1867,15 @@ def confirm_delete_account(request, uidb64, token):
     return redirect('landing')
 
 
-@login_required
 @require_POST
 def analyze_game_view(request):
     """
     Analyze a completed game based on its move history and return statistics.
     Expects JSON payload with 'moves' (list of notation strings), 'result', and 'reason'.
     """
+    if not request.user.is_authenticated:
+        return JsonResponse({'error': 'Unauthorized'}, status=401)
+
     try:
         data = json.loads(request.body)
         moves = data.get('moves', [])
@@ -1879,12 +1885,12 @@ def analyze_game_view(request):
         if not isinstance(moves, list):
             return JsonResponse({'error': 'Moves must be a list'}, status=400)
 
-        if len(moves) > 500:
-            return JsonResponse({'error': 'Moves list cannot exceed 500'}, status=400)
+        if len(moves) > MAX_ANALYSIS_MOVES:
+            return JsonResponse({'error': f'Moves list cannot exceed {MAX_ANALYSIS_MOVES} entries'}, status=400)
 
         for m in moves:
-            if not isinstance(m, str) or len(m) > 20:
-                return JsonResponse({'error': 'Move must be a string of at most 20 characters'}, status=400)
+            if not isinstance(m, str) or len(m) > MAX_MOVE_LENGTH:
+                return JsonResponse({'error': f'Move must be a string of at most {MAX_MOVE_LENGTH} characters'}, status=400)
 
         summary = build_summary(moves, result, reason)
         return JsonResponse(summary)
