@@ -251,103 +251,223 @@
     </main>
 
     <section id="features" class="features-capabilities">
-      <div class="capabilities-container">
+      <div class="bento-container">
         <h2 class="section-title">Platform Capabilities</h2>
-        <div class="capabilities-grid">
-          <div class="capability-card">
-            <div class="capability-icon">
-              <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2a3 3 0 0 0-3 3c0 .8.3 1.5.8 2H8a3 3 0 0 0-3 3v2h14v-2a3 3 0 0 0-3-3h-1.2c.5-.5.8-1.2.8-2a3 3 0 0 0-3-3z"/>
-                <path d="M19 21H5a1 1 0 0 1-1-1v-2c0-1.7 1.3-3 3-3h10c1.7 0 3 1.3 3 3v2a1 1 0 0 1-1 1z"/>
-                <line x1="6" y1="18" x2="18" y2="18"/>
-              </svg>
+        <p class="section-subtitle">A premium suite of tools built for players of all skill levels.</p>
+        <div class="bento-grid">
+          
+          <!-- AI Opponent -->
+          <div class="bento-card bento-wide">
+            <div class="bento-visual ai-visual">
+              <div class="ai-brain-container">
+                 <div class="ai-node n1"></div>
+                 <div class="ai-node n2"></div>
+                 <div class="ai-node n3"></div>
+                 <div class="ai-node n4"></div>
+                 <div class="ai-node n5"></div>
+                 <svg class="ai-edges" viewBox="0 0 200 100">
+                    <line x1="100" y1="20" x2="50" y2="80" class="ai-edge" />
+                    <line x1="100" y1="20" x2="150" y2="80" class="ai-edge" />
+                    <line x1="50" y1="80" x2="20" y2="150" class="ai-edge" />
+                    <line x1="150" y1="80" x2="180" y2="150" class="ai-edge" />
+                 </svg>
+              </div>
+              <div class="ai-hud">
+                 <span class="hud-dot"></span> Alpha-Beta Pruning: Active<br>
+                 <span class="hud-dot"></span> Depth: 12
+              </div>
             </div>
-            <h3 class="capability-title">AI Opponent</h3>
-            <p class="capability-desc">Challenge an advanced AI opponent utilizing minimax search with alpha-beta pruning optimization.</p>
-          </div>
-
-          <div class="capability-card">
-            <div class="capability-icon">
-              <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-              </svg>
-            </div>
-            <h3 class="capability-title">Hybrid Engine</h3>
-            <p class="capability-desc">Orchestrates high-performance C++ minimax calculations with a reliable Python fallback system.</p>
-          </div>
-
-          <div class="capability-card">
-            <div class="capability-icon">
-              <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 15 14"></polyline>
-              </svg>
-            </div>
-            <h3 class="capability-title">Game Timer</h3>
-            <p class="capability-desc">Configure Bullet, Blitz, or Rapid game timers featuring pause, resume, and real-time synchronization.</p>
-          </div>
-
-          <div class="capability-card">
-            <div class="capability-icon">
-              <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="20" x2="18" y2="10"/>
-                <line x1="12" y1="20" x2="12" y2="4"/>
-                <line x1="6" y1="20" x2="6" y2="14"/>
-              </svg>
-            </div>
-            <h3 class="capability-title">Live Material Score</h3>
-            <p class="capability-desc">Monitor point differentials and tracked captured pieces dynamically in a side score panel.</p>
-          </div>
-
-          <div class="capability-card">
-            <div class="capability-icon">
-              <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                <circle cx="9" cy="7" r="4"/>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-              </svg>
-            </div>
-            <div class="capability-text">
-              <h3 class="capability-title">PvP & PvE Modes</h3>
-              <p class="capability-desc">Compete locally against friends in Pass & Play mode, or test your skills against the engine.</p>
+            <div class="bento-content">
+              <div class="bento-title-row">
+                <div class="bento-icon-small">
+                  <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2a3 3 0 0 0-3 3c0 .8.3 1.5.8 2H8a3 3 0 0 0-3 3v2h14v-2a3 3 0 0 0-3-3h-1.2c.5-.5.8-1.2.8-2a3 3 0 0 0-3-3z"/>
+                    <path d="M19 21H5a1 1 0 0 1-1-1v-2c0-1.7 1.3-3 3-3h10c1.7 0 3 1.3 3 3v2a1 1 0 0 1-1 1z"/>
+                    <line x1="6" y1="18" x2="18" y2="18"/>
+                  </svg>
+                </div>
+                <h3 class="bento-title">AI Opponent</h3>
+              </div>
+              <p class="bento-desc">Challenge an advanced AI opponent utilizing minimax search with alpha-beta pruning optimization.</p>
             </div>
           </div>
 
-          <div class="capability-card">
-            <div class="capability-icon">
-              <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                <polyline points="9 11 11 13 15 9"/>
-              </svg>
+          <!-- Game Timer -->
+          <div class="bento-card">
+            <div class="bento-visual timer-visual">
+               <div class="digital-clock">05<span class="blink">:</span>00</div>
+               <div class="timer-controls">
+                  <button class="t-btn">⏸</button>
+                  <button class="t-btn active">▶</button>
+               </div>
             </div>
-            <div class="capability-text">
-              <h3 class="capability-title">Full Move Validation</h3>
-              <p class="capability-desc">Rigorous real-time move validation covering castling, en passant, and pawn promotions.</p>
+            <div class="bento-content">
+              <div class="bento-title-row">
+                <div class="bento-icon-small">
+                  <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 15 14"></polyline>
+                  </svg>
+                </div>
+                <h3 class="bento-title">Game Timer</h3>
+              </div>
+              <p class="bento-desc">Configure Bullet, Blitz, or Rapid timers featuring real-time synchronization.</p>
             </div>
           </div>
 
-          <div class="capability-card">
-            <div class="capability-icon">
-              <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="3"/>
-                <circle cx="19" cy="5" r="3"/>
-                <circle cx="5" cy="5" r="3"/>
-                <circle cx="19" cy="19" r="3"/>
-                <circle cx="5" cy="19" r="3"/>
-                <line x1="8.5" y1="5" x2="15.5" y2="5"/>
-                <line x1="8.5" y1="19" x2="15.5" y2="19"/>
-                <line x1="5" y1="8" x2="5" y2="16"/>
-                <line x1="19" y1="8" x2="19" y2="16"/>
-                <line x1="7.1" y1="7.1" x2="16.9" y2="16.9"/>
-                <line x1="7.1" y1="16.9" x2="16.9" y2="7.1"/>
-              </svg>
+          <!-- Live Material Score -->
+          <div class="bento-card">
+            <div class="bento-visual score-visual">
+               <div class="material-row white-mat">
+                  <span class="mat-pieces">♙ ♙ ♘</span>
+                  <span class="mat-score">+3</span>
+               </div>
+               <div class="material-row black-mat">
+                  <span class="mat-pieces">♟</span>
+                  <span class="mat-score">-</span>
+               </div>
             </div>
-            <div class="capability-text">
-              <h3 class="capability-title">REST API Architecture</h3>
-              <p class="capability-desc">Decoupled REST API endpoints manage clean session routing, move calculations, and game statuses.</p>
+            <div class="bento-content">
+              <div class="bento-title-row">
+                <div class="bento-icon-small">
+                  <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10"/>
+                    <line x1="12" y1="20" x2="12" y2="4"/>
+                    <line x1="6" y1="20" x2="6" y2="14"/>
+                  </svg>
+                </div>
+                <h3 class="bento-title">Live Material Score</h3>
+              </div>
+              <p class="bento-desc">Monitor point differentials and track captured pieces dynamically.</p>
             </div>
           </div>
+
+          <!-- PvP & PvE -->
+          <div class="bento-card mode-interactive-card">
+            <div class="bento-visual modes-visual">
+               <div class="mode-switch-container">
+                  <div class="mode-switch">
+                     <div class="m-option opt-pvp active">PvP</div>
+                     <div class="m-option opt-pve">PvE</div>
+                  </div>
+               </div>
+               <div class="mode-avatars-wrap">
+                  <div class="mode-avatars pvp-mode">
+                     <div class="m-avatar player1">🧑</div>
+                     <div class="m-vs">VS</div>
+                     <div class="m-avatar player2">🧑</div>
+                  </div>
+                  <div class="mode-avatars pve-mode">
+                     <div class="m-avatar player1">🧑</div>
+                     <div class="m-vs">VS</div>
+                     <div class="m-avatar player2">🤖</div>
+                  </div>
+               </div>
+            </div>
+            <div class="bento-content">
+              <div class="bento-title-row">
+                <div class="bento-icon-small">
+                  <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  </svg>
+                </div>
+                <h3 class="bento-title">PvP & PvE Modes</h3>
+              </div>
+              <p class="bento-desc">Compete locally against friends in Pass & Play mode, or test your skills against the engine.</p>
+            </div>
+          </div>
+
+          <!-- Full Move Validation -->
+          <div class="bento-card">
+            <div class="bento-visual valid-visual">
+               <div class="chess-grid-mini">
+                  <div class="cg-sq light"></div><div class="cg-sq dark"><span class="cg-piece">♞</span></div><div class="cg-sq light"></div>
+                  <div class="cg-sq dark"></div><div class="cg-sq light"></div><div class="cg-sq dark"></div>
+                  <div class="cg-sq light valid-target"></div><div class="cg-sq dark"></div><div class="cg-sq light"></div>
+                  <svg class="cg-arrow" viewBox="0 0 100 100" preserveAspectRatio="none">
+                     <path d="M 50 15 L 50 85 L 15 85" fill="none" stroke="var(--accent-gold)" stroke-width="4" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+                     <defs>
+                        <marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                          <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent-gold)" />
+                        </marker>
+                      </defs>
+                  </svg>
+               </div>
+            </div>
+            <div class="bento-content">
+              <div class="bento-title-row">
+                <div class="bento-icon-small">
+                  <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <polyline points="9 11 11 13 15 9"/>
+                  </svg>
+                </div>
+                <h3 class="bento-title">Full Move Validation</h3>
+              </div>
+              <p class="bento-desc">Rigorous real-time move validation covering castling, en passant, and promotions.</p>
+            </div>
+          </div>
+
+          <!-- Interactive Lessons — full width (bento-full, moved above PvP row) -->
+          <div class="bento-card bento-full">
+            <div style="display:flex; gap:1.5rem; height:100%;">
+
+              <!-- LEFT: existing lesson mockup + text -->
+              <div style="flex:1.1; display:flex; flex-direction:column; justify-content:space-between;">
+                <div class="bento-visual lessons-visual" style="flex:1; margin-bottom:1rem;">
+                  <div class="lesson-mockup">
+                    <div class="lm-video">
+                      <div class="lm-play-btn">▶</div>
+                    </div>
+                    <div class="lm-details">
+                      <span class="lm-badge">Chapter 4</span>
+                      <div class="lm-title">Mastering the Sicilian Defense</div>
+                      <div class="lm-progress-bg"><div class="lm-progress-fill"></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="bento-content">
+                  <div class="bento-title-row">
+                    <div class="bento-icon-small">
+                      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
+                      </svg>
+                    </div>
+                    <h3 class="bento-title">Interactive Lessons</h3>
+                  </div>
+                  <p class="bento-desc">Learn openings, endgames, and tactics through step-by-step tutorials — then test yourself with end-of-lesson quizzes.</p>
+                </div>
+              </div>
+
+              <!-- DIVIDER -->
+              <div style="width:1px; background:rgba(255,255,255,0.06); flex-shrink:0; align-self:stretch;"></div>
+
+              <!-- RIGHT: quiz preview diagram -->
+              <div style="flex:1; display:flex; flex-direction:column; justify-content:center; padding:0.5rem 0.25rem;">
+                <div class="quiz-preview-badge">Quiz · End of Chapter</div>
+                <div class="quiz-preview-question">Which move opens the Sicilian Defence?</div>
+                <div class="quiz-preview-opts">
+                  <div class="qpo">a) &nbsp;1. d4</div>
+                  <div class="qpo qpo-correct">b) &nbsp;1. e4 c5 ✓</div>
+                  <div class="qpo">c) &nbsp;1. Nf3</div>
+                  <div class="qpo">d) &nbsp;1. c4</div>
+                </div>
+                <div class="quiz-preview-footer">
+                  <span class="qpf-dot qpf-done"></span>
+                  <span class="qpf-dot qpf-done"></span>
+                  <span class="qpf-dot qpf-active"></span>
+                  <span class="qpf-dot"></span>
+                  <span class="qpf-label">Q 3 of 4</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
         </div>
       </div>
     </section>
@@ -400,11 +520,11 @@
                                     <span class="about-stat-label">Game Modes</span>
                                 </div>
                                 <div class="about-stat">
-                                    <span class="about-stat-num" data-target="50">0</span><span style="color:var(--accent-gold);font-weight:800;">+</span>
+                                    <div style="display: flex; align-items: baseline;"><span class="about-stat-num" data-target="50">0</span><span style="color:var(--accent-gold);font-weight:800;font-size:2.2rem;font-family:'Exo 2', sans-serif;">+</span></div>
                                     <span class="about-stat-label">Achievements</span>
                                 </div>
                                 <div class="about-stat">
-                                    <span class="about-stat-num" data-target="100">0</span><span style="color:var(--accent-gold);font-weight:800;">%</span>
+                                    <div style="display: flex; align-items: baseline;"><span class="about-stat-num" data-target="100">0</span><span style="color:var(--accent-gold);font-weight:800;font-size:2.2rem;font-family:'Exo 2', sans-serif;">%</span></div>
                                     <span class="about-stat-label">Free to Play</span>
                                 </div>
                             </div>
@@ -1419,6 +1539,19 @@
         if (card3) perfObserver.observe(card3);
     })();
   </script>  
+  <script>
+    function selectQuizOpt(el, isCorrect) {
+        const opts = el.parentElement.querySelectorAll('.quiz-opt');
+        opts.forEach(o => { o.onclick = null; o.style.pointerEvents = 'none'; });
+        el.classList.add(isCorrect ? 'selected-right' : 'selected-wrong');
+        if (! isCorrect) {
+            el.parentElement.querySelector('.quiz-correct').classList.add('selected-right');
+        }
+        const fb = document.getElementById('quizFeedback');
+        fb.style.display = 'block';
+        if (!isCorrect) { fb.style.color = '#ef4444'; fb.textContent = '✗ Not quite — 2.Nf3 is the key move.'; }
+    }
+  </script>
       <script src="{% static 'game/js/dropdown.js' %}"></script>
   </body>
 </html>
