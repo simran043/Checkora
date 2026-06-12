@@ -52,6 +52,23 @@ Join our Discord community for updates, support, and games: https://discord.gg/D
 
 ---
 
+## Table of contents 
+
+- [Contributors](#contributors)
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [Project Structure](#project-structure)
+- [Architecture](#architecture)
+- [API Reference](#api-reference)
+- [Request/Response JSON Examples](#requestresponse-json-examples)
+- [Tests](#tests)
+- [Troubleshooting Guide](#troubleshooting-guide)
+- [Contributor Support & Feedback](#contributor-support--feedback)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
 ## Contributors
 
 <!-- CONTRIBUTORS_START -->
