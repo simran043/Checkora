@@ -1394,7 +1394,7 @@ class StatsCleanupTest(TestCase):
         self.client.login(username='usera', password='password123')
         response = self.client.get('/stats/')
         self.assertNotContains(response, 'Checkmate')
-        self.assertContains(response, 'No Match Records Found')
+        self.assertContains(response, 'No games played yet. Play a game to see your stats here!')
 
 class StaleGameCleanupTest(TestCase):
     def setUp(self):
