@@ -114,11 +114,13 @@ class ChessGame:
             result = '1-0' if self.current_turn == 'black' else '0-1'
 
         pgn_moves = []
+        def _fix_castling(move):
+            return move.replace('0-0-0', 'O-O-O').replace('0-0', 'O-O')
         for i in range(0, len(self.move_history), 2):
             move_number = i // 2 + 1
-            white_move = self.move_history[i]['notation']
+            white_move = _fix_castling(self.move_history[i]['notation'])
             if i + 1 < len(self.move_history):
-                black_move = self.move_history[i + 1]['notation']
+                black_move = _fix_castling(self.move_history[i + 1]['notation'])
                 pgn_moves.append(f"{move_number}. {white_move} {black_move}")
             else:
                 pgn_moves.append(f"{move_number}. {white_move}")
@@ -132,7 +134,7 @@ class ChessGame:
             f'[Result "{result}"]',
         ]
         moves = " ".join(pgn_moves)
-        return "\n".join(headers) + "\n\n" + moves
+        return "\n".join(headers) + "\n\n" + moves + " " + result
 
     def to_dict(self):
         """Serialise state for Django session storage.
