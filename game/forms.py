@@ -96,3 +96,48 @@ class CustomPasswordResetForm(PasswordResetForm):
                 "Failed to send password reset email. "
                 "Please check your email configuration and try again."
             )
+        
+class DiscussionForm(forms.ModelForm):
+    class Meta:
+        model = Discussion
+        fields = ["title", "content"]
+        widgets = {
+            "title": forms.TextInput(attrs={
+                "placeholder": "Give your discussion a title",
+                "maxlength": "200",
+            }),
+            "content": forms.Textarea(attrs={
+                "placeholder": "Share your thoughts, questions, or strategies...",
+                "rows": 6,
+            }),
+        }
+
+    def clean_title(self):
+        title = self.cleaned_data.get("title", "").strip()
+        if len(title) < 5:
+            raise ValidationError("Title must be at least 5 characters long.")
+        return title
+
+    def clean_content(self):
+        content = self.cleaned_data.get("content", "").strip()
+        if len(content) < 10:
+            raise ValidationError("Content must be at least 10 characters long.")
+        return content
+
+
+class ReplyForm(forms.ModelForm):
+    class Meta:
+        model = Reply
+        fields = ["content"]
+        widgets = {
+            "content": forms.Textarea(attrs={
+                "placeholder": "Write a reply...",
+                "rows": 3,
+            }),
+        }
+
+    def clean_content(self):
+        content = self.cleaned_data.get("content", "").strip()
+        if len(content) < 2:
+            raise ValidationError("Reply cannot be empty.")
+        return content
