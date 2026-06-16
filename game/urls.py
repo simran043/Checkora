@@ -58,4 +58,10 @@ urlpatterns = [
     path("forum/new/", views.forum_new, name="forum_new"),
     path("forum/<int:discussion_id>/", views.forum_detail, name="forum_detail"),
     path("forum/<int:discussion_id>/reply/", views.forum_reply, name="forum_reply"),
+
+    path(
+        "forum/<int:discussion_id>/bookmark/",
+        views.toggle_discussion_bookmark,
+        name="toggle_discussion_bookmark",
+    ),
 ]

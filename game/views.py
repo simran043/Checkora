@@ -66,7 +66,7 @@ from .models import (
 )
 
 from .rating_service import calculate_rating_change
-from .models import Discussion, Reply
+from .models import Discussion, Reply, DiscussionBookmark
 from .forms import DiscussionForm, ReplyForm
 
 logger = logging.getLogger(__name__)
@@ -3482,13 +3482,62 @@ def download_badge(request, achievement_id):
 def forum_list(request):
     discussions = Discussion.objects.select_related("user").prefetch_related("replies")
 
+    user_discussions = Discussion.objects.none()
+    bookmarked_discussions = Discussion.objects.none()
+    bookmarked_ids = set()
+
+    if request.user.is_authenticated:
+        user_discussions = (
+            Discussion.objects
+            .filter(
+                models.Q(user=request.user) |
+                models.Q(replies__user=request.user)
+            )
+            .select_related("user")
+            .prefetch_related("replies")
+            .distinct()
+        )
+
+        bookmarked_discussions = (
+            Discussion.objects
+            .filter(bookmarks__user=request.user)
+            .select_related("user")
+            .prefetch_related("replies")
+            .distinct()
+        )
+
+        bookmarked_ids = set(
+            request.user.discussion_bookmarks.values_list(
+                "discussion_id",
+                flat=True
+            )
+        )
+
     return render(
         request,
         "game/forum_list.html",
         {
             "discussions": discussions,
+            "user_discussions": user_discussions,
+            "bookmarked_discussions": bookmarked_discussions,
+            "bookmarked_ids": bookmarked_ids,
         }
     )
+
+@login_required
+@require_POST
+def toggle_discussion_bookmark(request, discussion_id):
+    discussion = get_object_or_404(Discussion, id=discussion_id)
+
+    bookmark, created = DiscussionBookmark.objects.get_or_create(
+        user=request.user,
+        discussion=discussion
+    )
+
+    if not created:
+        bookmark.delete()
+
+    return redirect("forum")
 
 def forum_detail(request, discussion_id):
     discussion = get_object_or_404(Discussion, id=discussion_id)
