@@ -4597,7 +4597,7 @@
     });
 
 })();
-// Enable Enter key submission for Game Setup / Lobby configurations
+// Enable Enter key submission for Game Setup and Lobby configurations.
 document.addEventListener("DOMContentLoaded", function () {
     const setupInputs = document.querySelectorAll('#player-name-input, .setup-menu input, #config-panel input');
 
