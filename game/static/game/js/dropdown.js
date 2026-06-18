@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    console.log("dropdown.js loaded");
+    
     const dropdown = document.querySelector('.profile-dropdown');
     if (!dropdown) return;
 
@@ -8,13 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (btn && content) {
         btn.addEventListener('click', function (e) {
-            console.log("dropdown button clicked");
             e.stopPropagation();
             dropdown.classList.toggle('active');
-            console.log(
-                "active:",
-                dropdown.classList.contains('active')
-            );
+        
         });
 
         // Close dropdown when clicking outside
