@@ -23,6 +23,12 @@ original_each_context = admin.site.each_context
 
 def custom_each_context(request):
     context = original_each_context(request)
+    is_admin_index = (
+        getattr(request, "resolver_match", None)
+        and request.resolver_match.view_name == "admin:index"
+    )
+    if not is_admin_index:
+        return context
 
     context["health_status"] = {
         "Database": check_database(),
@@ -43,7 +49,7 @@ def custom_each_context(request):
             "puzzles": ChessPuzzle.objects.count(),
         }
     except DatabaseError:
-        pass
+        context["stats"] = {"users": None, "puzzles": None}
 
     return context
 
