@@ -50,7 +50,7 @@ from django.views.decorators.http import require_GET, require_POST
 from django.contrib.auth.decorators import login_required
 from django.db import models
 
-from django.db.models import Count, Avg, Max, Min, Sum, Q
+from django.db.models import Count, Avg, Max, Min, Sum
 from datetime import timedelta
 
 from .opening_trainer_data import OPENINGS
