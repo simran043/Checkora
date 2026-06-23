@@ -555,4 +555,30 @@ class Reply(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.discussion.title}"
-      
+    
+class DiscussionBookmark(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="discussion_bookmarks"
+    )
+
+    discussion = models.ForeignKey(
+        Discussion,
+        on_delete=models.CASCADE,
+        related_name="bookmarks"
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("user", "discussion")
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.user.username} bookmarked {self.discussion.title}"
+    
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+    

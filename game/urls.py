@@ -76,6 +76,13 @@ urlpatterns = [
     path("forum/<int:discussion_id>/reply/", views.forum_reply, name="forum_reply"),
 
     path(
+        "forum/<int:discussion_id>/bookmark/",
+        views.toggle_discussion_bookmark,
+        name="toggle_discussion_bookmark",
+    ),
+
+    # Reply actions
+    path(
         "forum/reply/<int:reply_id>/edit/",
         views.forum_reply_edit,
         name="forum_reply_edit",
