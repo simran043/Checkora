@@ -3335,13 +3335,22 @@ class AvatarUploadFormTest(TestCase):
 
     def test_valid_jpeg_passes(self):
         from game.forms import AvatarUploadForm
-        file = self._make_image_file('photo.jpg', 'image/jpeg')
-        form = AvatarUploadForm(files={'avatar': file})
-        # Form will fail ImageField validation in test (no real JPEG data),
-        # but the AvatarUploadForm MIME check itself should pass.
-        # We only test the size and MIME portions here directly.
-        form_instance = AvatarUploadForm()
-        self.assertIn('avatar', form_instance.fields)
+        from PIL import Image
+        import io
+        from django.core.files.uploadedfile import SimpleUploadedFile
+        
+        # Dynamically generate a valid 10x10 JPEG
+        img_buffer = io.BytesIO()
+        Image.new('RGB', (10, 10), color='red').save(img_buffer, 'JPEG')
+        img_buffer.seek(0)
+        
+        file = SimpleUploadedFile('photo.jpg', img_buffer.read(), 'image/jpeg')
+        file.content_type = 'image/jpeg'
+        
+        form = AvatarUploadForm()
+        form.cleaned_data = {'avatar': file}
+        cleaned = form.clean_avatar()
+        self.assertEqual(cleaned, file)
 
     def test_size_validation_rejects_files_over_5mb(self):
         from game.forms import AvatarUploadForm
@@ -3376,17 +3385,20 @@ class AvatarUploadFormTest(TestCase):
 
     def test_mime_validation_accepts_webp(self):
         from game.forms import AvatarUploadForm
+        from PIL import Image
+        import io
         from django.core.files.uploadedfile import SimpleUploadedFile
-        webp_file = SimpleUploadedFile(
-            name='img.webp',
-            content=b'RIFF',
-            content_type='image/webp'
-        )
+        
+        # Dynamically generate a valid WEBP
+        img_buffer = io.BytesIO()
+        Image.new('RGB', (10, 10), color='blue').save(img_buffer, 'WEBP')
+        img_buffer.seek(0)
+        
+        webp_file = SimpleUploadedFile('img.webp', img_buffer.read(), 'image/webp')
         webp_file.content_type = 'image/webp'
-        webp_file.size = 100
+        
         form = AvatarUploadForm()
         form.cleaned_data = {'avatar': webp_file}
-        # Should NOT raise — WEBP is allowed
         result = form.clean_avatar()
         self.assertEqual(result, webp_file)
 

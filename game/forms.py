@@ -177,4 +177,22 @@ class AvatarUploadForm(forms.Form):
                 "Please upload a PNG, JPG/JPEG, or WEBP file."
             )
 
+        from PIL import Image
+        try:
+            # Pillow uses tell() to remember where it started reading
+            # but since Django's file object might be manipulated, we 
+            # make sure it starts at 0.
+            avatar.seek(0)
+            img = Image.open(avatar)
+            img.verify()  # verify checks the header without decoding the entire image
+            if img.format not in ("PNG", "JPEG", "MPO", "WEBP"):
+                raise ValidationError(
+                    "Unsupported image format. "
+                    "Please upload a PNG, JPG/JPEG, or WEBP file."
+                )
+        except Exception:
+            raise ValidationError("Invalid or corrupted image file.")
+        finally:
+            avatar.seek(0)
+
         return avatar

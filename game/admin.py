@@ -22,7 +22,11 @@ class ChessPuzzleAdmin(admin.ModelAdmin):
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'has_avatar')
     search_fields = ('user__username', 'user__email')
-    readonly_fields = ('user',)
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return ('user',)
+        return ()
 
     @admin.display(boolean=True, description='Has Avatar')
     def has_avatar(self, obj):

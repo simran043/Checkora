@@ -321,7 +321,7 @@
             {% if user.is_authenticated %}
 
             <div class="profile-dropdown">
-                <button class="profile-btn" style="display:flex;align-items:center;gap:4px;">
+                <button type="button" class="profile-btn" style="display:flex;align-items:center;gap:4px;">
                     {% if user.profile.avatar %}
                       <img src="{{ user.profile.avatar }}" class="nav-avatar" alt="" style="width:24px;height:24px;border-radius:50%;object-fit:cover;">
                     {% else %}

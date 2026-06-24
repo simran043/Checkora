@@ -601,6 +601,18 @@ class UserProfile(models.Model):
     # Stored as a base64 data URI. Empty string means no avatar set.
     avatar = models.TextField(blank=True, default="")
 
+    def clean(self):
+        super().clean()
+        if self.avatar:
+            if not self.avatar.startswith("data:image/"):
+                raise ValidationError({"avatar": "Invalid avatar data URI."})
+            if ";base64," not in self.avatar:
+                raise ValidationError({"avatar": "Invalid avatar data URI."})
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.user.username} Profile"
 

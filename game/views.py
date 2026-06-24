@@ -3954,6 +3954,13 @@ def upload_avatar(request):
             uploaded_file = form.cleaned_data["avatar"]
             try:
                 img = Image.open(uploaded_file)
+                # Pixel bomb guard: restrict dimensions before decoding
+                if img.size[0] > 4096 or img.size[1] > 4096:
+                    raise ValueError(
+                        "Image dimensions exceed the maximum allowed size of "
+                        "4096×4096."
+                    )
+
                 # Eagerly decode the entire image to catch truncated /
                 # corrupt files before any transformation takes place.
                 try:
