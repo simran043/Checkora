@@ -484,13 +484,6 @@ body.hide-native-cursor * {
     transition-delay: 0s;
 }
 
-.profile-dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.profile-dropdown:focus-within .dropdown-content {
-    display: block;
-}
 .profile-dropdown:not(.active) .dropdown-content {
     transition-delay: 0.15s;
 }
