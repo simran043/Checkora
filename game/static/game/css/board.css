@@ -574,6 +574,7 @@ body {
     max-width: 100%;
     box-sizing: content-box;
     position: relative;
+    color-scheme: light dark;
 }
 
 /* ============================================================
