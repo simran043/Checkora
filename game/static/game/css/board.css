@@ -154,7 +154,7 @@ body {
 
 .game-header-theme-toggle:hover {
     background: rgba(255,255,255,0.06);
-    border-color: var(--gold);
+    border-color: var(--accent-gold);
 }
 
 .game-header-theme-toggle:active {
