@@ -479,6 +479,39 @@ class GameRecord(models.Model):
 
     def __str__(self):
         return f"Game {self.id} ({self.white_label} vs {self.black_label})"
+
+class ActiveGame(models.Model):
+    """Tracks active games for efficient cleanup."""
+
+    user = models.ForeignKey(
+    settings.AUTH_USER_MODEL,
+    on_delete=models.SET_NULL,
+    null=True,
+    blank=True,
+    )
+
+    session_key = models.CharField(
+        max_length=40,
+        db_index=True,
+    )
+
+    last_active = models.DateTimeField(
+    default=timezone.now,
+    db_index=True,
+    )
+
+    status = models.CharField(
+        max_length=20,
+        default="active",
+        db_index=True,
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+    def __str__(self):
+        return f"{self.session_key} ({self.status})"
+
 class Discussion(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
