@@ -1568,7 +1568,8 @@ def rate_limit(window_setting, max_setting, prefix, error_message="Rate limit re
         @wraps(view_func)
         def _wrapped_view(request, *args, **kwargs):
             key_id = request.user.id if request.user.is_authenticated else get_client_ip(request)
-            cache_key = f"rate_limit:{prefix}:{key_id}"
+            key_digest = hashlib.sha256(str(key_id).encode('utf-8')).hexdigest()
+            cache_key = f"rate_limit:{prefix}:{key_digest}"
             
             window_seconds = getattr(settings, window_setting, 60)
             max_requests = getattr(settings, max_setting, 60)
